@@ -7,7 +7,7 @@ SHARE_DIR = os.path.join("share", PACKAGE_NAME)
 
 setup(
     name=PACKAGE_NAME,
-    version='2.0.0',
+    version='2.0.1',
     packages=["libnmea_navsat_driver", "libnmea_navsat_driver.nodes"],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -30,6 +30,7 @@ setup(
     entry_points={
         'console_scripts': ['nmea_serial_driver = libnmea_navsat_driver.nodes.nmea_serial_driver:main',
                             'nmea_socket_driver = libnmea_navsat_driver.nodes.nmea_socket_driver:main',
+                            'nmea_tcpclient_driver = libnmea_navsat_driver.nodes.nmea_tcpclient_driver:main',
                             'nmea_topic_driver = libnmea_navsat_driver.nodes.nmea_topic_driver:main',
                             'nmea_topic_serial_reader = libnmea_navsat_driver.nodes.nmea_topic_serial_reader:main'],
     }

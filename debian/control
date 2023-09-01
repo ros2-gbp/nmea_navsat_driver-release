@@ -1,0 +1,13 @@
+Source: ros-humble-nmea-navsat-driver
+Section: misc
+Priority: optional
+Maintainer: Ed Venator <evenator@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), python3-pytest <!nocheck>, ros-humble-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: http://ros.org/wiki/nmea_navsat_driver
+Standards-Version: 3.9.2
+
+Package: ros-humble-nmea-navsat-driver
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, python3-numpy, python3-serial, ros-humble-geometry-msgs, ros-humble-nmea-msgs, ros-humble-rclpy, ros-humble-sensor-msgs, ros-humble-tf-transformations, ros-humble-ros-workspace
+Description: Package to parse NMEA strings and publish a very simple GPS message.
+ Does not require or use the GPSD deamon.

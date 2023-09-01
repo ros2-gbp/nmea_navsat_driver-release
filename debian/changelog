@@ -1,0 +1,149 @@
+ros-humble-nmea-navsat-driver (2.0.1-1jammy) jammy; urgency=high
+
+  * Fix parsing of true_course field in VTG message (#165 <https://github.com/evenator/nmea_navsat_driver/issues/165>)
+    Co-authored-by: Stefan Gisler <mailto:stefan.gisler@hillbot.ch>
+  * Fix missing return in driver.add_sentence to avoid returning None.
+  * Update logger definition to match ROS2 logging API.
+  * Add Support for TCP GNSS Sensor (#152 <https://github.com/evenator/nmea_navsat_driver/issues/152>)
+    Add a new nmea_tcpclient_driver for sensors that offer a TCP interface rather than a UDP interface.
+    The nmea_tcpclient_driver connects to a TCP socket and forwards the NMEA-Sentences line-by-line to the driver.
+  * Modify setup.cfg to remove warning when doing colcon build (#157 <https://github.com/evenator/nmea_navsat_driver/issues/157>)
+  * Contributors: Dunkelmann, Luca Bascetta, gislers, joeldushouyu
+
+ -- Ed Venator <evenator@gmail.com>  Thu, 31 Aug 2023 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (2.0.0-1jammy) jammy; urgency=high
+
+  * Replace dependency on transforms3d pip package to tf_transformations. (#147 <https://github.com/evenator/nmea_navsat_driver/issues/147>)
+  * Added log for successful connection. (#149 <https://github.com/evenator/nmea_navsat_driver/issues/149>)
+  * Removed printing every time the checksum is checked. (#148 <https://github.com/evenator/nmea_navsat_driver/issues/148>)
+  * nmea_socket_driver fixes for ROS2 (#127 <https://github.com/evenator/nmea_navsat_driver/issues/127>)
+    * Fix white space for PEP8 compliance
+    * Fix socket driver for ROS2 Foxy
+    * Add config file for socket driver
+    * Decode bytes as ASCII
+  * Fix bug where ROS node is not assigned correctly (#114 <https://github.com/evenator/nmea_navsat_driver/issues/114>)
+    Fixes #71 <https://github.com/evenator/nmea_navsat_driver/issues/71>
+  * Update launch file for ROS2 Foxy (#110 <https://github.com/evenator/nmea_navsat_driver/issues/110>)
+    * Remove get_default_launch_description, which no longer exists.
+    * Update the parameters of the Node initializer to the Foxy API.
+  * Update pyserial dependency to make it findable with rosdep (#109 <https://github.com/evenator/nmea_navsat_driver/issues/109>)
+    This allows rosdep to find the correct serial package and install it.
+  * ROS2: Eloquent changes for python packages (#101 <https://github.com/evenator/nmea_navsat_driver/issues/101>)
+    Fix some warnings when installing packages that first appear in ROS2 Eloquent:
+    - A missing the resource folder
+    - Not explicitly installing package.xml in the share folder.
+  * ROS2 updates for Dashing (#80 <https://github.com/evenator/nmea_navsat_driver/issues/80>)
+    Change subscriptions and parameters to conform to API changes in ROS 2 Dashing.
+  * Remove scripts directory in favor of nodes subpackage (#77 <https://github.com/evenator/nmea_navsat_driver/issues/77>)
+    Since these modules will no longer be called as scripts in ROS 2,
+    move them to a nodes subpackage, and remove the option to call them
+    as executables.
+    Addresses #75 <https://github.com/evenator/nmea_navsat_driver/issues/75> for ROS 2.
+  * Fix nmea_topic_serial_reader name (#74 <https://github.com/evenator/nmea_navsat_driver/issues/74>)
+    - Fix #72 <https://github.com/evenator/nmea_navsat_driver/issues/72> (no module name scripts.nmea_topic_serial_driver)
+    - Fix exception handling in nmea_topic_serial_reader ('rclpy' has no attribute 'ROSInterruptException')
+  * Clean up launch file and make it runnable with ROS2 launch (#73 <https://github.com/evenator/nmea_navsat_driver/issues/73>)
+    Fixes #70 <https://github.com/evenator/nmea_navsat_driver/issues/70>
+    - Rename config file and put it into a config directory.
+    - Make setup.py install the launch and config files.
+    - Rename the launch file with the .launch.py suffix used by OSRF
+    packages.
+    - Refactor the launch file so that it works with ros2 launch.
+  * Fix PEP8 Violations and update setup.cfg file for pycodestyle. (#69 <https://github.com/evenator/nmea_navsat_driver/issues/69>)
+  * Port to ROS 2 (#64 <https://github.com/evenator/nmea_navsat_driver/issues/64>)
+    Initial work to port nmea_navsat_driver to ROS2 by @klintan.
+  * Add nmea_serial_driver launch file (#60 <https://github.com/evenator/nmea_navsat_driver/issues/60>)
+    Add example nmea_serial_driver launch file.
+  * Remove automatic prefixing of forward slash to frame_id. (#33 <https://github.com/evenator/nmea_navsat_driver/issues/33>/#57 <https://github.com/evenator/nmea_navsat_driver/issues/57>)
+    To be consistent with the current default behavior, the default frame_id has been set to /gps with the prepended forward slash.
+  * Add support for IMU aided GPS systems (#30 <https://github.com/evenator/nmea_navsat_driver/issues/30>/#58 <https://github.com/evenator/nmea_navsat_driver/issues/58>)
+    * Add support for IMU aided GPS systems like the Applanix POS/MV, whose NMEA strings typically begin '$IN'. (e.g. $INGGA).
+    * Add support for VTG messages, which contain Course Over Ground and Speed Made Good. These are useful when not using RMC messages and you don't have a heading sensor.
+  * Add support for publishing heading from GPHDT as a QuaternionStamped message on the topic /heading (#25 <https://github.com/evenator/nmea_navsat_driver/issues/25>)
+  * Improve Covariance Estimation (#46 <https://github.com/evenator/nmea_navsat_driver/issues/46>)
+    Use GST covariance where available, otherwise uses default covariances estimated from fix type.
+    The previous implementation set covariance to HDOP^2. Instead, it should multiply that by the measurement variance. HDOP should be greater than 1.0.
+  * Add Socket Driver (#32 <https://github.com/evenator/nmea_navsat_driver/issues/32>)
+    Add a NMEA socket driver node, which is like the existing serial driver node, but instead of attaching to a TTY handle from a serial port, it listens to a UDP port for NMEA sentences.
+  * Add code to handle serial exception to allow node to exit cleanly (#52 <https://github.com/evenator/nmea_navsat_driver/issues/52>)
+    - Catch Serial exceptions and exit cleanly, instead of printing Python stack trace.
+    - Catch Serial exception when opening the serial port, log a FATAL message, and exit instead of printing Python stack trace.
+  * Remove MSL compensation (#36 <https://github.com/evenator/nmea_navsat_driver/issues/36>)
+    Fix for #29 <https://github.com/evenator/nmea_navsat_driver/issues/29> Altitude vs Elipsoid Height.
+  * Add GLONASS support
+    GLONASS capable devices send different NMEA sentences, which are
+    basically identical to the GPS sentences, but with other prefixes.
+  * Updated driver to accept status of 9 which some novatel receivers report for a WAAS (SBAS) fix.
+    See http://www.novatel.com/support/known-solutions/which-novatel-position-types-correspond-to-the-gga-quality-indicator/
+
+ -- Ed Venator <evenator@gmail.com>  Sat, 25 Jun 2022 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.5.0-1jammy) jammy; urgency=high
+
+  * Release to Jade.
+
+ -- Ed Venator <evenator@gmail.com>  Thu, 23 Apr 2015 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.4.2-1jammy) jammy; urgency=high
+
+  * Fix remaining parse problem with NovAtel receivers (empty field specified for num_satellite).
+
+ -- Ed Venator <evenator@gmail.com>  Thu, 23 Apr 2015 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.4.1-1jammy) jammy; urgency=high
+
+  * Add debug logging output to the parser (PR #8, Mike Purvis)
+  * Add queue size argument to publishers to fix warning on Indigo (PR #9, Mike Purvis)
+  * Add support for roslint and some related cleanup (PR #10, Mike Purvis)
+
+ -- Ed Venator <evenator@gmail.com>  Sun, 03 Aug 2014 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.4.0-1jammy) jammy; urgency=high
+
+  * Initial release for Indigo
+  * Fix #5: Empty fields spam rosout with warnings. Driver now outputs sensor_msgs/NavSatFix messages that may contain NaNs in position and covariance when receiving invalid fixes from the device.
+
+ -- Ed Venator <evenator@gmail.com>  Sun, 04 May 2014 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.3.3-1jammy) jammy; urgency=high
+
+  * Allow the driver to output velocity information anytime an RMC message is received
+
+ -- Ed Venator <evenator@gmail.com>  Tue, 08 Oct 2013 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.3.2-1jammy) jammy; urgency=high
+
+  * Moved to nmea_navsat_driver package
+  * Removed .py extensions from new-in-Hydro scripts
+  * Now uses nmea_msgs/Sentence instead of custom sentence type
+  * nmea_topic_driver reads the frame_id parameter from the sentence, not from the parameter server
+
+ -- Ed Venator <evenator@gmail.com>  Sun, 21 Jul 2013 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.3.1-1jammy) jammy; urgency=high
+
+  * Removed incorrect find_package dependencies
+
+ -- Ed Venator <evenator@gmail.com>  Tue, 07 May 2013 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.3.0-1jammy) jammy; urgency=high
+
+  * Initial release for Hydro
+  * Converted to Catkin
+  * nmea_gps_driver.py is now deprecated and will be removed in I-Turtle. Replacement node is nmea_serial_driver.py .
+  * Refactored code into NMEA parser, common ROS driver and separate nodes for reading directly from serial or from topic.
+  * Bugs fixed:
+    - nmea_gps_driver crashes when a sentence doesn't have a checksum * character ( http://kforge.ros.org/gpsdrivers/trac/ticket/4 )
+    - Add ability for nmea_gps_driver to support reading from string topic ( https://github.com/ros-drivers/nmea_gps_driver/issues/1 ). Use the nmea_topic_driver.py node to get this support.
+
+ -- Ed Venator <evenator@gmail.com>  Sun, 05 May 2013 04:00:00 -0000
+
+ros-humble-nmea-navsat-driver (0.2.0-1jammy) jammy; urgency=high
+
+  * Initial version (released into Fuerte)
+  * Supports GGA or RMC+GSA sentences to generate sensor_msgs/NavSatFix messages
+
+ -- Ed Venator <evenator@gmail.com>  Thu, 15 Mar 2012 04:00:00 -0000
+
+

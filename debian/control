@@ -1,0 +1,13 @@
+Source: ros-jazzy-nmea-navsat-driver
+Section: misc
+Priority: optional
+Maintainer: Ed Venator <evenator@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), python3-pytest <!nocheck>, ros-jazzy-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: http://ros.org/wiki/nmea_navsat_driver
+Standards-Version: 3.9.2
+
+Package: ros-jazzy-nmea-navsat-driver
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, python3-numpy, python3-serial, ros-jazzy-geometry-msgs, ros-jazzy-nmea-msgs, ros-jazzy-rclpy, ros-jazzy-sensor-msgs, ros-jazzy-tf-transformations, ros-jazzy-ros-workspace
+Description: Package to parse NMEA strings and publish a very simple GPS message.
+ Does not require or use the GPSD deamon.

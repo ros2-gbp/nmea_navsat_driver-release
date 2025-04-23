@@ -1,1 +1,1 @@
-{"base": "d42a39a", "parent": "debian/rolling/nmea_navsat_driver", "previous": "414001c", "trim": "", "trimbase": ""}
+{"base": "9c0aca5e4d8c", "parent": "debian/kilted/nmea_navsat_driver", "previous": "0e7abf0cd47a", "trim": "", "trimbase": ""}

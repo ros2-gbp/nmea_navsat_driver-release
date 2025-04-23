@@ -1,0 +1,13 @@
+Source: ros-kilted-nmea-navsat-driver
+Section: misc
+Priority: optional
+Maintainer: Ed Venator <evenator@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), python3-pytest <!nocheck>, ros-kilted-ros-workspace, python3-all, python3-setuptools, dh-python
+Homepage: http://ros.org/wiki/nmea_navsat_driver
+Standards-Version: 3.9.2
+
+Package: ros-kilted-nmea-navsat-driver
+Architecture: any
+Depends: ${python3:Depends}, ${misc:Depends}, python3-numpy, python3-serial, ros-kilted-geometry-msgs, ros-kilted-nmea-msgs, ros-kilted-rclpy, ros-kilted-sensor-msgs, ros-kilted-tf-transformations, ros-kilted-ros-workspace
+Description: Package to parse NMEA strings and publish a very simple GPS message.
+ Does not require or use the GPSD deamon.
